@@ -47,7 +47,7 @@ export default function AddClothingModal() {
                     />
           </Form.Group>
           <Form.Group className="mb-3" controlId="ItemNameControl">
-                    <Form.Label>quantity</Form.Label>
+                    <Form.Label>Quantity</Form.Label>
                     <Form.Control
                     type="number"
                     placeholder="ex: 3"
@@ -96,7 +96,7 @@ export default function AddClothingModal() {
 
 const UploadImage = ({reduc}: {reduc: boolean}) => {
     const [red, setRed] = useState<boolean>(reduc);
-    const [image,setImage]=useState<File>(new File([""], "imageName"));
+    const [image,setImage]=useState<File>(new File([""], ""));
     
     const handleChange=(e: any)=>{
         const data=e.target.files[0]
@@ -105,10 +105,10 @@ const UploadImage = ({reduc}: {reduc: boolean}) => {
     return (
         <div>
              <input type="file" onChange={handleChange}/>   
-              {image &&
+             {image.size }
+              {image.size == 0 ? null : image &&
                 
                   <div> 
-                      <span>{image.name}</span>
                       <img src={URL.createObjectURL(image)}/>
       </div>  
       }         
