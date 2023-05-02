@@ -1,4 +1,4 @@
-import { collection, DocumentData, DocumentReference, getDocs, query, Query, QueryDocumentSnapshot, setDoc, SnapshotOptions, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, DocumentData, DocumentReference, getDocs, query, Query, QueryDocumentSnapshot, setDoc, SnapshotOptions, updateDoc, where } from "firebase/firestore";
 import { db } from "./firebase";
 import { doc, getDoc} from "firebase/firestore";
 import {IClothingItem} from '../interfaces/clothingitem'
@@ -74,3 +74,20 @@ export const getAllClothing = async (user: any): Promise<IClothingItem[]> => {
   
     return clothingItems;
   };
+
+  export const InsertClothing = async (clothingItem: IClothingItem): Promise<DocumentReference<DocumentData>> => {
+    const ClothingConst: string = DatabaseCollections[DatabaseCollections.ClothingItem];
+    const colRef = collection(db, ClothingConst);
+    const clothingItemData = LinkedConverter.toFirestore(clothingItem);
+    const docRef = await addDoc(colRef, clothingItemData);
+    return docRef;
+  };
+
+  
+  export const UpdateClothing = async (clothingItem: IClothingItem, docId: string): Promise<void> => {
+    const ClothingConst: string = DatabaseCollections[DatabaseCollections.ClothingItem];
+    const colRef = collection(db, ClothingConst);
+    const clothingItemData = LinkedConverter.toFirestore(clothingItem);
+    await updateDoc(doc(colRef, docId), clothingItemData);
+  };
+  
