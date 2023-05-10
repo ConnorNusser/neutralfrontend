@@ -9,10 +9,20 @@ import {
   StatHelpText,
   StatArrow,
   StatGroup,
-  Box,
-  SimpleGrid,
   Icon,
   useColorModeValue,
+  ChakraProvider,
+  TableContainer,
+  Table,
+  TableCaption,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Tfoot,
+  Input,
+  Button
 } from '@chakra-ui/react'
 import {
   MdAddTask,
@@ -29,6 +39,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function AdminPortal() {
   return (
+    <ChakraProvider>
     <main
       className={`flex flex-col items-center justify-between`}
     >
@@ -44,7 +55,10 @@ export default function AdminPortal() {
       <StatComponent/>
       </Col>
       </Row>
+      <div style={{paddingTop:'2rem', paddingBottom:'2rem'}}></div>
+      <AdminTable/>
     </main>
+    </ChakraProvider>
   )
 }
 
@@ -126,4 +140,72 @@ const RevenueComponent = () => {
         </Col>
       </Row>
       )
+  }
+      const AdminTable = () => {
+        return (
+          <div>
+            <Input
+    placeholder='Search for clothing items...'
+  />
+  <TableContainer>
+  <Table variant='striped' colorScheme='blue'>
+    <TableCaption>Clothing Items</TableCaption>
+    <Thead>
+      <Tr>
+        <Th>Name</Th>
+        <Th>Quantity</Th>
+        <Th isNumeric>Price</Th>
+        <Th>Active</Th>
+        <Th>Action</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>Linen T-Shirt</Td>
+        <Td>2</Td>
+        <Td isNumeric>25.4</Td>
+        <Td isNumeric>Yes</Td>
+        <Td><Button>View More Details</Button></Td>
+        <Td><Button colorScheme='messenger'>Edit Info</Button></Td>
+      </Tr>
+      <Tr>
+        <Td>Cashmere Sweater - Embossa</Td>
+        <Td>3</Td>
+        <Td isNumeric>30.48</Td>
+        <Td isNumeric>Yes</Td>
+        <Td><Button>View More Details</Button></Td>
+        <Td><Button colorScheme='messenger'>Edit Info</Button></Td>
+      </Tr>
+      <Tr>
+        <Td>Cashmere Sweater</Td>
+        <Td>4</Td>
+        <Td isNumeric>0.91444</Td>
+        <Td isNumeric>No</Td>
+        <Td><Button>View More Details</Button></Td>
+        <Td><Button colorScheme='messenger'>Edit Info</Button></Td>
+      </Tr>
+      <AdminTableDataRow />
+    </Tbody>
+    <Tfoot style={{alignItems:'center', display:'inline-flex'}}>
+      <Button colorScheme='blue'>Previous</Button>
+      <Button colorScheme='blue'>Next</Button>
+    </Tfoot>
+  </Table>
+</TableContainer>
+</div>
+        )
+      }
+
+const AdminTableDataRow = (props? : any) => {
+  return (
+    <Tr>
+        <Td>{props.name}</Td>
+        <Td>{props.quantity}</Td>
+        <Td isNumeric>{props.price}</Td>
+        <Td isNumeric>{props.IsActive}</Td>
+        <Td><Button>View More Details</Button></Td>
+        <Td><Button colorScheme='messenger'>Edit Info</Button></Td>
+      </Tr>
+  )
+
 }
